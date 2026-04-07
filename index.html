@@ -792,13 +792,52 @@ function buildSummary() {
   document.getElementById('summaryBox').innerHTML=html;
 }
 
-function confirmBooking() {
-  const ref='RVM-'+Math.floor(100000+Math.random()*900000);
-  document.getElementById('bookingRef').textContent=ref;
-  document.getElementById('card5').classList.remove('active');
-  document.getElementById('cardSuccess').classList.add('active');
-  document.querySelectorAll('.step').forEach(s=>{s.classList.remove('active');s.classList.add('done');});
-  window.scrollTo({top:0,behavior:'smooth'});
+async function confirmBooking() {
+  const btn = document.querySelector('#card5 .btn-confirm');
+  btn.disabled = true;
+  btn.textContent = '⏳ Sending…';
+
+  const payload = {
+    name:        document.getElementById('name').value,
+    phone:       document.getElementById('phone').value,
+    email:       document.getElementById('email').value,
+    city:        document.getElementById('city').value,
+    eventType:   state.eventType,
+    eventDate:   document.getElementById('event-date').value,
+    eventTime:   document.getElementById('event-time').value,
+    guests:      document.getElementById('guests').value,
+    venueType:   document.getElementById('venue-type').value,
+    venue:       document.getElementById('venue').value,
+    package:     state.pkg,
+    color:       state.color,
+    addons:      state.addons,
+    notes:       document.getElementById('notes').value,
+    contactPref: document.getElementById('payment').value,
+  };
+
+  try {
+    const res = await fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Submission failed');
+    }
+
+    document.getElementById('bookingRef').textContent = data.bookingRef;
+    document.getElementById('card5').classList.remove('active');
+    document.getElementById('cardSuccess').classList.add('active');
+    document.querySelectorAll('.step').forEach(s=>{s.classList.remove('active');s.classList.add('done');});
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch (err) {
+    console.error('Submission error:', err);
+    alert('Sorry, there was a problem submitting your inquiry. Please try again or contact us directly on WhatsApp.');
+    btn.disabled = false;
+    btn.textContent = '🪔 Send My Inquiry';
+  }
 }
 
 function resetApp() { location.reload(); }
