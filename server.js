@@ -5,8 +5,58 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Parse incoming JSON request bodies
+app.use(express.json());
+
 // Serve static files from the current directory
 app.use(express.static(path.join(__dirname)));
+
+// POST /submit — saves a form inquiry to MongoDB
+app.post('/submit', async (req, res) => {
+  const mongoUrl = process.env.MONGO_URL;
+
+  if (!mongoUrl) {
+    return res.status(500).json({
+      error: 'MONGO_URL environment variable is not set.',
+    });
+  }
+
+  const formData = req.body;
+  if (!formData || typeof formData !== 'object') {
+    return res.status(400).json({ error: 'Invalid or missing form data.' });
+  }
+
+  let client;
+  try {
+    client = new MongoClient(mongoUrl);
+    await client.connect();
+
+    const db = client.db();
+    const collection = db.collection('inquiries');
+
+    const doc = {
+      ...formData,
+      submittedAt: new Date(),
+    };
+
+    const result = await collection.insertOne(doc);
+
+    res.json({
+      success: true,
+      bookingRef: result.insertedId.toString(),
+    });
+  } catch (err) {
+    console.error('MongoDB error:', err);
+    res.status(500).json({
+      error: 'Failed to save inquiry to MongoDB.',
+      details: err.message,
+    });
+  } finally {
+    if (client) {
+      await client.close();
+    }
+  }
+});
 
 // GET /admin/data — lists all databases, collections, and sample documents
 app.get('/admin/data', async (req, res) => {
