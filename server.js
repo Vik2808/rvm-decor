@@ -68,7 +68,7 @@ app.post('/submit', async (req, res) => {
 
         const mailOptions = {
           from: emailUser,
-          to: 'mayuri.asnani@gmail.com',
+          to: 'vikramtest00@gmail.com',
           subject: `New Inquiry from ${name || 'Unknown'} — RVM Decor`,
           text: [
             'A new booking inquiry has been submitted via the RVM Decor website.',
