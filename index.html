@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RVM Decor Studio — Send an Inquiry</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --magenta:    #E91E8C;
+  --violet:     #7C3AED;
+  --gold:       #F5C842;
+  --gold-soft:  #FFE58A;
+  --teal:       #06B6D4;
+  --bg:         #0D0820;
+  --surface:    #160E30;
+  --surface2:   #1E1440;
+  --border:     rgba(245,200,66,0.22);
+  --border-hi:  rgba(233,30,140,0.5);
+  --text:       #F0E8FF;
+  --muted:      #9B8EC4;
+  --card-glow:  rgba(124,58,237,0.18);
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATED BACKGROUND ── */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.bg-layer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 55% at 10% 15%,  rgba(233,30,140,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 90% 85%,  rgba(124,58,237,0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,  rgba(6,182,212,0.10)  0%, transparent 60%),
+    radial-gradient(ellipse 30% 30% at 80% 10%,  rgba(245,200,66,0.12) 0%, transparent 55%);
+  animation: bgShift 14s ease-in-out infinite alternate;
+}
+@keyframes bgShift {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.85; transform: scale(1.06); }
+}
+/* Orbiting rings */
+.ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(245,200,66,0.1);
+  animation: spin linear infinite;
+}
+.ring:nth-child(1){ width:600px;height:600px;top:-250px;right:-200px;animation-duration:90s;border-color:rgba(233,30,140,0.12); }
+.ring:nth-child(2){ width:400px;height:400px;top:-150px;right:-120px;animation-duration:65s;animation-direction:reverse;border-color:rgba(124,58,237,0.15); }
+.ring:nth-child(3){ width:700px;height:700px;bottom:-350px;left:-250px;animation-duration:110s;border-color:rgba(6,182,212,0.1); }
+.ring:nth-child(4){ width:300px;height:300px;bottom:-100px;left:-80px;animation-duration:50s;animation-direction:reverse;border-color:rgba(245,200,66,0.12); }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* Star particles */
+.star {
+  position: absolute; border-radius: 50%;
+  animation: twinkle ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0%  { opacity: 0.1; transform: scale(0.8); }
+  100%{ opacity: 0.9; transform: scale(1.3); }
+}
+
+/* ── WRAPPER ── */
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 980px; margin: 0 auto;
+  padding: 40px 20px 90px;
+}
+
+/* ── HEADER ── */
+header { text-align: center; margin-bottom: 48px; }
+.logo-ring {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 92px; height: 92px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--magenta), var(--violet));
+  box-shadow: 0 0 0 6px rgba(233,30,140,0.18), 0 0 40px rgba(233,30,140,0.5), 0 0 80px rgba(124,58,237,0.3);
+  margin-bottom: 18px;
+  animation: logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%,100%{ box-shadow:0 0 0 6px rgba(233,30,140,0.18),0 0 40px rgba(233,30,140,0.5),0 0 80px rgba(124,58,237,0.3); }
+  50%    { box-shadow:0 0 0 12px rgba(233,30,140,0.1),0 0 60px rgba(233,30,140,0.7),0 0 120px rgba(124,58,237,0.4); }
+}
+.logo-ring span { font-size: 2.4rem; }
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-weight: 700; letter-spacing: 0.04em; line-height: 1; color: var(--text);
+}
+.brand-name em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--magenta), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.brand-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--gold); margin-top: 5px; opacity: 0.85;
+}
+.brand-tagline { margin-top: 12px; font-size: 0.87rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+.brand-tagline strong { color: var(--teal); font-weight: 600; }
+.location-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.3);
+  border-radius: 20px; padding: 5px 16px;
+  font-size: 0.73rem; color: var(--teal); font-weight: 600; margin-top: 10px;
+}
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center; margin-top: 16px;
+}
+.divider::before,.divider::after {
+  content:''; flex:1; max-width:110px; height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.divider span { color: var(--gold); font-size: 1rem; }
+
+/* ── STEPS ── */
+.steps {
+  display: flex; justify-content: center;
+  gap: 0; margin-bottom: 32px; position: relative;
+}
+.steps::before {
+  content:''; position:absolute; top:22px; left:50%; transform:translateX(-50%);
+  width:55%; height:1px;
+  background: linear-gradient(90deg, transparent, var(--magenta), var(--violet), var(--teal), transparent);
+}
+.step { display:flex; flex-direction:column; align-items:center; gap:7px; flex:1; max-width:120px; }
+.step-dot {
+  width:44px; height:44px; border-radius:50%;
+  background: var(--surface2); border: 2px solid rgba(245,200,66,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.85rem; font-weight:600; color:var(--muted);
+  transition:all 0.4s ease; position:relative; z-index:1;
+}
+.step.active .step-dot {
+  background: linear-gradient(135deg, var(--magenta), var(--violet));
+  border-color: var(--magenta); color: white;
+  box-shadow: 0 0 20px rgba(233,30,140,0.6), 0 0 40px rgba(124,58,237,0.3);
+}
+.step.done .step-dot {
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  border-color: var(--teal); color: white;
+  box-shadow: 0 0 16px rgba(6,182,212,0.4);
+}
+.step-label { font-size:0.67rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:600; }
+.step.active .step-label { color: var(--magenta); }
+.step.done .step-label { color: var(--teal); }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  padding: 44px 48px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  display: none;
+  animation: fadeUp 0.45s cubic-bezier(0.34,1.2,0.64,1);
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, var(--magenta), var(--violet), var(--teal), var(--gold));
+}
+.card::after {
+  content:''; position:absolute; inset:0; border-radius:24px; pointer-events:none;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124,58,237,0.08) 0%, transparent 70%);
+}
+.card.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)} }
+.card-header { margin-bottom:26px; }
+.card-header h2 { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--text); }
+.card-header h2 span { font-style:italic; background:linear-gradient(135deg,var(--magenta),var(--gold)); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.card-header p { color:var(--muted); font-size:0.87rem; margin-top:5px; }
+
+/* ── FORM ── */
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field.span2 { grid-column:1/-1; }
+label { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+input,select,textarea {
+  font-family:'Nunito',sans-serif; font-size:0.93rem;
+  padding:11px 15px; border:1.5px solid rgba(124,58,237,0.25); border-radius:10px;
+  background: rgba(255,255,255,0.04); color:var(--text);
+  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s; outline:none; width:100%;
+}
+input::placeholder { color: rgba(155,142,196,0.5); }
+select option { background: var(--surface2); color: var(--text); }
+input:focus,select:focus,textarea:focus {
+  border-color: var(--magenta);
+  box-shadow: 0 0 0 3px rgba(233,30,140,0.15), 0 0 16px rgba(233,30,140,0.1);
+  background: rgba(233,30,140,0.05);
+}
+textarea { resize:vertical; min-height:80px; }
+.error-msg { color:#ff6b8a; font-size:0.74rem; display:none; }
+.field.error input,.field.error select { border-color:#ff6b8a; }
+.field.error .error-msg { display:block; }
+
+/* ── EVENT TYPES ── */
+.event-types { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:4px; }
+.etype {
+  border: 1.5px solid rgba(124,58,237,0.25); border-radius:14px; padding:14px 10px;
+  cursor:pointer; text-align:center; transition:all 0.25s;
+  background: rgba(255,255,255,0.03);
+}
+.etype:hover { border-color:rgba(233,30,140,0.5); transform:translateY(-3px); background:rgba(233,30,140,0.06); box-shadow:0 8px 24px rgba(233,30,140,0.15); }
+.etype.selected { border-color:var(--magenta); background:rgba(233,30,140,0.1); box-shadow:0 0 0 1px var(--magenta),0 8px 28px rgba(233,30,140,0.25); }
+.etype-icon { font-size:1.6rem; display:block; margin-bottom:5px; }
+.etype-name { font-size:0.71rem; font-weight:600; color:var(--text); line-height:1.3; }
+
+/* ── PACKAGES ── */
+.packages { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+.pkg {
+  border: 1.5px solid rgba(124,58,237,0.25); border-radius:18px; padding:24px 16px;
+  cursor:pointer; transition:all 0.3s; text-align:center; position:relative;
+  background: rgba(255,255,255,0.03);
+}
+.pkg:hover {
+  border-color: rgba(245,200,66,0.5); transform:translateY(-4px);
+  background: rgba(245,200,66,0.04);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 20px rgba(245,200,66,0.12);
+}
+.pkg.selected {
+  border-color: var(--magenta);
+  background: rgba(233,30,140,0.08);
+  box-shadow: 0 0 0 1px var(--magenta), 0 12px 40px rgba(233,30,140,0.3), 0 0 60px rgba(124,58,237,0.15);
+}
+.pkg-icon { font-size:2.4rem; display:block; margin-bottom:10px; }
+.pkg-name { font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.25rem; color:var(--text); }
+.pkg-tier { font-size:0.63rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin:4px 0 8px; }
+.pkg-price { font-weight:700; font-size:1.1rem; background:linear-gradient(135deg,var(--magenta),var(--gold)); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.pkg-price-note { font-size:0.68rem; color:var(--muted); margin-top:3px; font-style:italic; }
+.pkg-desc { font-size:0.71rem; color:var(--muted); margin-top:8px; line-height:1.55; }
+.pkg-badge {
+  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background: linear-gradient(135deg, var(--magenta), var(--violet));
+  color:white; font-size:0.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.1em;
+  padding:3px 14px; border-radius:20px; white-space:nowrap;
+  box-shadow: 0 4px 14px rgba(233,30,140,0.45);
+}
+
+/* ── COLOR PALETTE ── */
+.section-label { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:10px; }
+.colors { display:flex; gap:10px; flex-wrap:wrap; }
+.color-chip {
+  width:36px; height:36px; border-radius:50%; cursor:pointer;
+  border:3px solid transparent; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;
+  position:relative;
+}
+.color-chip:hover { transform:scale(1.25); }
+.color-chip.selected { border-color:white; transform:scale(1.25); box-shadow:0 0 0 2px var(--magenta), 0 4px 16px rgba(0,0,0,0.4); }
+.color-chip::after {
+  content:attr(title); position:absolute; bottom:115%; left:50%; transform:translateX(-50%);
+  background:var(--surface2); color:var(--text); font-size:0.6rem; padding:3px 8px; border-radius:5px;
+  white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.2s;
+  border:1px solid var(--border);
+}
+.color-chip:hover::after { opacity:1; }
+
+/* ── ADD-ONS ── */
+.addons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.addon {
+  display:flex; align-items:center; gap:12px; padding:13px 15px;
+  border: 1.5px solid rgba(124,58,237,0.22); border-radius:12px; cursor:pointer;
+  transition:all 0.22s; background:rgba(255,255,255,0.03);
+}
+.addon:hover { border-color:rgba(245,200,66,0.4); background:rgba(245,200,66,0.04); }
+.addon.checked { border-color:var(--magenta); background:rgba(233,30,140,0.08); box-shadow:0 0 14px rgba(233,30,140,0.18); }
+.addon-check {
+  width:22px; height:22px; border-radius:6px; border:2px solid rgba(124,58,237,0.3);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:0.72rem; color:transparent; transition:all 0.22s;
+}
+.addon.checked .addon-check {
+  background: linear-gradient(135deg, var(--magenta), var(--violet));
+  border-color:var(--magenta); color:white;
+  box-shadow:0 2px 10px rgba(233,30,140,0.4);
+}
+.addon-name { font-size:0.83rem; font-weight:600; color:var(--text); }
+.addon-price { font-size:0.73rem; color:var(--gold); font-weight:700; }
+
+/* ── SUMMARY ── */
+.summary-box {
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(233,30,140,0.06));
+  border:1.5px solid var(--border); border-radius:18px; padding:24px 28px; margin-bottom:18px;
+}
+.summary-row {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:9px 0; border-bottom:1px dashed rgba(245,200,66,0.15);
+  font-size:0.87rem; gap:12px;
+}
+.summary-row:last-child { border-bottom:none; }
+.summary-row .lbl { color:var(--muted); flex-shrink:0; }
+.summary-row .val { font-weight:600; text-align:right; color:var(--text); }
+.summary-total { display:flex; justify-content:space-between; padding-top:14px; margin-top:6px; border-top:1px solid rgba(245,200,66,0.25); }
+.summary-total .lbl { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:700; color:var(--text); }
+.summary-total .val { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:700; background:linear-gradient(135deg,var(--magenta),var(--gold)); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.deposit-note { display:flex; justify-content:flex-start; padding-top:10px; font-size:0.82rem; gap:8px; }
+.deposit-note .lbl { color:var(--muted); }
+.deposit-note .val { color:var(--teal); font-weight:700; }
+
+/* ── BUTTONS ── */
+.btn-row { display:flex; justify-content:space-between; align-items:center; margin-top:28px; gap:12px; }
+.btn { font-family:'Nunito',sans-serif; font-weight:600; font-size:0.91rem; padding:13px 28px; border-radius:50px; border:none; cursor:pointer; transition:all 0.25s; letter-spacing:0.03em; }
+.btn-back {
+  background:transparent; color:var(--muted);
+  border:1.5px solid rgba(124,58,237,0.3);
+}
+.btn-back:hover { border-color:var(--muted); color:var(--text); }
+.btn-next {
+  background: linear-gradient(135deg, var(--magenta), var(--violet));
+  color:white; flex:1; max-width:260px;
+  box-shadow: 0 6px 24px rgba(233,30,140,0.45), 0 0 40px rgba(124,58,237,0.2);
+}
+.btn-next:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(233,30,140,0.6),0 0 50px rgba(124,58,237,0.3); }
+.btn-confirm {
+  background: linear-gradient(135deg, var(--violet), var(--teal));
+  color:white; flex:1; max-width:260px;
+  box-shadow: 0 6px 24px rgba(124,58,237,0.45), 0 0 40px rgba(6,182,212,0.2);
+}
+.btn-confirm:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(124,58,237,0.6),0 0 50px rgba(6,182,212,0.3); }
+
+/* ── NOTICE ── */
+.notice {
+  background: rgba(6,182,212,0.07); border:1px solid rgba(6,182,212,0.25);
+  border-radius:12px; padding:13px 16px; font-size:0.79rem; color:var(--muted); line-height:1.6; margin-top:14px;
+}
+.notice strong { color:var(--teal); }
+
+/* ── SUCCESS ── */
+.success-card { text-align:center; padding:20px 0 10px; }
+.success-icon { font-size:74px; display:block; animation:popIn 0.7s cubic-bezier(0.34,1.56,0.64,1); margin-bottom:18px; }
+@keyframes popIn { from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1} }
+.success-card h2 { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+.success-card h2 em { font-style:italic; background:linear-gradient(135deg,var(--magenta),var(--gold)); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.success-card p { color:var(--muted); font-size:0.9rem; line-height:1.7; max-width:440px; margin:0 auto 24px; }
+.booking-ref {
+  display:inline-block;
+  background: linear-gradient(135deg, rgba(233,30,140,0.1), rgba(124,58,237,0.1));
+  border:2px dashed rgba(245,200,66,0.5); border-radius:16px; padding:14px 36px;
+  font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:700;
+  background-clip:text; color:var(--gold); letter-spacing:0.15em; margin-bottom:16px;
+  box-shadow: 0 0 30px rgba(245,200,66,0.15);
+}
+.success-detail {
+  background: rgba(255,255,255,0.04); border:1px solid var(--border);
+  border-radius:14px; padding:16px 24px; margin:0 auto 28px; max-width:420px;
+  font-size:0.82rem; color:var(--muted); line-height:1.7;
+}
+.success-detail strong { color:var(--text); }
+.btn-new {
+  background: linear-gradient(135deg, var(--gold), var(--magenta));
+  color:white; padding:14px 44px; border-radius:50px; border:none;
+  font-family:'Nunito',sans-serif; font-weight:700; cursor:pointer; transition:all 0.25s; font-size:0.92rem;
+  box-shadow: 0 6px 24px rgba(245,200,66,0.3), 0 0 40px rgba(233,30,140,0.2);
+}
+.btn-new:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(245,200,66,0.45),0 0 50px rgba(233,30,140,0.3); }
+
+/* ── WHATSAPP ── */
+.wa-float {
+  position:fixed; bottom:26px; right:22px; z-index:999;
+  background:#25D366; color:white; border-radius:50px; padding:11px 18px;
+  font-size:0.8rem; font-weight:700; text-decoration:none;
+  display:flex; align-items:center; gap:7px;
+  box-shadow:0 6px 22px rgba(37,211,102,0.5); transition:all 0.25s;
+  font-family:'Nunito',sans-serif;
+}
+.wa-float:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 10px 30px rgba(37,211,102,0.65); }
+
+@media(max-width:640px){
+  .card{padding:26px 18px;}
+  .form-grid{grid-template-columns:1fr;}
+  .field.span2{grid-column:1;}
+  .packages{grid-template-columns:1fr;}
+  .event-types{grid-template-columns:repeat(2,1fr);}
+  .addons{grid-template-columns:1fr;}
+  .steps::before{width:78%;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer" id="bgLayer">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+</div>
+
+<a class="wa-float" href="https://wa.me/" target="_blank">💬 Chat on WhatsApp</a>
+
+<div class="wrapper">
+
+  <header>
+    <div class="logo-ring"><span>🪔</span></div>
+    <div class="brand-name">RVM <em>Decor</em></div>
+    <div class="brand-sub">Decor Studio</div>
+    <div class="brand-tagline">
+      Elevating moments with unique balloon &amp; decor designs<br>
+      <strong>Baby Shower · Godh Bharai · Gender Reveal · Birthday · Traditional · Wedding</strong>
+    </div>
+    <div class="location-badge">📍 Canada 🇨🇦 · KWC &amp; GTA · Inquiries open for 2026</div>
+    <div class="divider"><span>✦</span></div>
+  </header>
+
+  <div class="steps">
+    <div class="step active" id="step1"><div class="step-dot">1</div><span class="step-label">You</span></div>
+    <div class="step" id="step2"><div class="step-dot">2</div><span class="step-label">Event</span></div>
+    <div class="step" id="step3"><div class="step-dot">3</div><span class="step-label">Package</span></div>
+    <div class="step" id="step4"><div class="step-dot">4</div><span class="step-label">Extras</span></div>
+    <div class="step" id="step5"><div class="step-dot">5</div><span class="step-label">Submit</span></div>
+  </div>
+
+  <!-- CARD 1 -->
+  <div class="card active" id="card1">
+    <div class="card-header">
+      <h2>About <span>You</span></h2>
+      <p>Let us know who to reach out to — we'll get back to you within 24 hours</p>
+    </div>
+    <div class="form-grid">
+      <div class="field" id="f-name">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="e.g. Priya Sharma">
+        <span class="error-msg">Please enter your full name</span>
+      </div>
+      <div class="field" id="f-phone">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. (647) 555-0123">
+        <span class="error-msg">Please enter your phone number</span>
+      </div>
+      <div class="field span2" id="f-email">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com">
+        <span class="error-msg">Please enter a valid email</span>
+      </div>
+      <div class="field span2">
+        <label>City / Area</label>
+        <select id="city">
+          <option value="">Select your city...</option>
+          <option>Kitchener</option>
+          <option>Waterloo</option>
+          <option>Cambridge</option>
+          <option>Toronto (GTA)</option>
+          <option>Mississauga</option>
+          <option>Brampton</option>
+          <option>Hamilton</option>
+          <option>Other (specify in notes)</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <div></div>
+      <button class="btn btn-next" onclick="goTo(2)">Next: Tell Us About Your Event →</button>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card" id="card2">
+    <div class="card-header">
+      <h2>Your <span>Event</span></h2>
+      <p>Help us understand your vision so we can craft the perfect quote</p>
+    </div>
+    <div style="margin-bottom:20px">
+      <div class="section-label">Event Type</div>
+      <div class="event-types">
+        <div class="etype" onclick="selectEvent(this,'Baby Shower')"><span class="etype-icon">🍼</span><div class="etype-name">Baby Shower</div></div>
+        <div class="etype" onclick="selectEvent(this,'Godh Bharai')"><span class="etype-icon">🌸</span><div class="etype-name">Godh Bharai</div></div>
+        <div class="etype" onclick="selectEvent(this,'Gender Reveal')"><span class="etype-icon">🎀</span><div class="etype-name">Gender Reveal</div></div>
+        <div class="etype" onclick="selectEvent(this,'Birthday')"><span class="etype-icon">🎂</span><div class="etype-name">Birthday Party</div></div>
+        <div class="etype" onclick="selectEvent(this,'Wedding')"><span class="etype-icon">💍</span><div class="etype-name">Wedding</div></div>
+        <div class="etype" onclick="selectEvent(this,'Traditional / Pooja')"><span class="etype-icon">🪔</span><div class="etype-name">Traditional / Pooja</div></div>
+        <div class="etype" onclick="selectEvent(this,'Anniversary')"><span class="etype-icon">💑</span><div class="etype-name">Anniversary</div></div>
+        <div class="etype" onclick="selectEvent(this,'Other')"><span class="etype-icon">🎊</span><div class="etype-name">Other</div></div>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="field" id="f-date">
+        <label>Event Date</label>
+        <input type="date" id="event-date">
+        <span class="error-msg">Please select a date</span>
+      </div>
+      <div class="field" id="f-time">
+        <label>Setup Start Time</label>
+        <input type="time" id="event-time">
+        <span class="error-msg">Please select a time</span>
+      </div>
+      <div class="field" id="f-guests">
+        <label>Expected Guests</label>
+        <select id="guests">
+          <option value="">Number of guests...</option>
+          <option>Under 20</option>
+          <option>20 – 50</option>
+          <option>50 – 100</option>
+          <option>100 – 200</option>
+          <option>200+</option>
+        </select>
+        <span class="error-msg">Please select guest count</span>
+      </div>
+      <div class="field">
+        <label>Venue Type</label>
+        <select id="venue-type">
+          <option value="">Select venue type...</option>
+          <option>Banquet Hall</option>
+          <option>Community Centre</option>
+          <option>Home / Backyard</option>
+          <option>Temple / Mandir</option>
+          <option>Outdoor / Park</option>
+          <option>Restaurant</option>
+          <option>Hotel</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field span2">
+        <label>Venue Address</label>
+        <input type="text" id="venue" placeholder="Full address of the venue">
+      </div>
+      <div class="field span2">
+        <label>Theme Details / Special Wishes (optional)</label>
+        <textarea id="notes" placeholder="Names, age milestone, Krishna theme, peacock motif, colour preferences, language on signage, etc."></textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-next" onclick="goTo(3)">Next: Select a Package →</button>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card" id="card3">
+    <div class="card-header">
+      <h2>Which <span>Package</span> Interests You?</h2>
+      <p>Give us a starting point — Mayuri will refine the quote based on your exact needs</p>
+    </div>
+    <div class="packages">
+      <div class="pkg" onclick="selectPkg(this,'2 Backdrop Decoration','Starting from $60')">
+        <span class="pkg-icon">🎀</span>
+        <div class="pkg-name">2 Backdrop</div>
+        <div class="pkg-tier">Decoration Package</div>
+        <div class="pkg-price">Starting from $60</div>
+        <div class="pkg-price-note">Up to $700+ depending on requirements</div>
+        <div class="pkg-desc">Two custom backdrops tailored to your theme &amp; style. Final price varies based on design complexity, size, and materials.</div>
+      </div>
+      <div class="pkg" onclick="selectPkg(this,'Maa Theme Decoration','Starting from $800')">
+        <div class="pkg-badge">✦ Signature Theme</div>
+        <span class="pkg-icon">🪔</span>
+        <div class="pkg-name">Maa Theme</div>
+        <div class="pkg-tier">Traditional Decoration</div>
+        <div class="pkg-price">Starting from $800</div>
+        <div class="pkg-price-note">Price varies by client requirements</div>
+        <div class="pkg-desc">Stunning divine Maa-themed décor with sacred motifs, floral arrangements &amp; traditional elements. Fully customized to your vision.</div>
+      </div>
+      <div class="pkg" onclick="selectPkg(this,'Custom Package','Quote on Request')">
+        <span class="pkg-icon">✨</span>
+        <div class="pkg-name">Custom</div>
+        <div class="pkg-tier">Fully Tailored</div>
+        <div class="pkg-price">Quote on Request</div>
+        <div class="pkg-price-note">Designed around your unique needs</div>
+        <div class="pkg-desc">Have something special in mind? Describe your dream decoration and Mayuri will craft a personalized quote just for you.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:4px">
+      <div class="section-label">Choose Your Colour Palette</div>
+      <div class="colors">
+        <div class="color-chip selected" style="background:#E8841A" onclick="selectColor(this,'Saffron & Gold')" title="Saffron & Gold"></div>
+        <div class="color-chip" style="background:#C9963A" onclick="selectColor(this,'Gold & Ivory')" title="Gold & Ivory"></div>
+        <div class="color-chip" style="background:#8B1A1A" onclick="selectColor(this,'Deep Red & Maroon')" title="Deep Red & Maroon"></div>
+        <div class="color-chip" style="background:#F5DCC8" onclick="selectColor(this,'Peach & Blush')" title="Peach & Blush"></div>
+        <div class="color-chip" style="background:#C9B8E8" onclick="selectColor(this,'Lavender & Lilac')" title="Lavender & Lilac"></div>
+        <div class="color-chip" style="background:#B8D8E8" onclick="selectColor(this,'Baby Blue & White')" title="Baby Blue & White"></div>
+        <div class="color-chip" style="background:#B8E8C8" onclick="selectColor(this,'Mint & Sage')" title="Mint & Sage"></div>
+        <div class="color-chip" style="background:#F5C8D8" onclick="selectColor(this,'Blush Pink & Rose')" title="Blush Pink & Rose"></div>
+        <div class="color-chip" style="background:#1A6B6B" onclick="selectColor(this,'Peacock Green & Teal')" title="Peacock Green & Teal"></div>
+        <div class="color-chip" style="background:#2B1A2F" onclick="selectColor(this,'Midnight & Champagne')" title="Midnight & Champagne"></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-next" onclick="goTo(4)">Next: Any Extras? →</button>
+    </div>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card" id="card4">
+    <div class="card-header">
+      <h2>Any <span>Extras</span> in Mind?</h2>
+      <p>Select anything that interests you — all optional, no commitment yet</p>
+    </div>
+    <div class="addons">
+      <div class="addon" onclick="toggleAddon(this,'Helium Balloon Bouquets',55)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🎈 Helium Balloon Bouquets</div><div class="addon-price">+$55</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Personalized Name / Age Banner',45)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">✍️ Personalized Banner</div><div class="addon-price">+$45</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Traditional Flower Garlands',70)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🌸 Traditional Flower Garlands</div><div class="addon-price">+$70</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Diyas & Candle Décor',50)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🪔 Diyas &amp; Candle Décor</div><div class="addon-price">+$50</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'LED Light Strings',65)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">💡 LED Light Strings</div><div class="addon-price">+$65</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Photo Backdrop & Booth Setup',130)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">📸 Photo Backdrop &amp; Booth</div><div class="addon-price">+$130</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Smoke / Confetti Cannon Set',65)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🎊 Smoke / Confetti Cannons</div><div class="addon-price">+$65</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Balloon Number / Letter Display',80)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🔢 Balloon Number Display</div><div class="addon-price">+$80</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Peacock / Krishna Theme Props',90)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🦚 Peacock / Krishna Props</div><div class="addon-price">+$90</div></div>
+      </div>
+      <div class="addon" onclick="toggleAddon(this,'Full Setup & Teardown Service',100)">
+        <div class="addon-check">✓</div>
+        <div><div class="addon-name">🛠️ Full Setup &amp; Teardown</div><div class="addon-price">+$100</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-back" onclick="goTo(3)">← Back</button>
+      <button class="btn btn-next" onclick="goTo(5)">Review My Inquiry →</button>
+    </div>
+  </div>
+
+  <!-- CARD 5 -->
+  <div class="card" id="card5">
+    <div class="card-header">
+      <h2>Review &amp; <span>Submit</span></h2>
+      <p>Almost done — review your inquiry details and send it off to Mayuri 🎉</p>
+    </div>
+    <div class="summary-box" id="summaryBox"></div>
+    <div class="field">
+      <label>Preferred Way to be Contacted</label>
+      <select id="payment">
+        <option>WhatsApp</option>
+        <option>Phone Call</option>
+        <option>Email</option>
+        <option>Any — whatever is fastest</option>
+      </select>
+    </div>
+    <div class="notice">
+      ✨ This is an <strong>inquiry, not a booking</strong>. Once Mayuri reviews your details, she will reach out within <strong>24 hours</strong> with a personalized quote. Your date is not held until a deposit is confirmed. No payment is required right now.
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-back" onclick="goTo(4)">← Back</button>
+      <button class="btn btn-confirm" onclick="confirmBooking()">🪔 Send My Inquiry</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="card" id="cardSuccess">
+    <div class="success-card">
+      <span class="success-icon">🌸</span>
+      <h2>Inquiry <em>Received!</em></h2>
+      <p>Thank you for reaching out to RVM Decor Studio! Mayuri will personally review your details and get back to you within <strong style="color:var(--teal)">24 hours</strong> with a custom quote tailored just for your celebration.</p>
+      <div class="booking-ref" id="bookingRef">RVM-000000</div>
+      <div class="success-detail">
+        <strong>📋 What happens next?</strong><br>
+        1. Mayuri reviews your inquiry<br>
+        2. She contacts you via your preferred method<br>
+        3. You receive a personalized quote<br>
+        4. Confirm &amp; pay deposit to lock your date 🎉
+      </div>
+      <button class="btn-new" onclick="resetApp()">✦ Submit Another Inquiry</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const state = { step:1, eventType:'', pkg:{name:'',price:''}, color:'Saffron & Gold', addons:[] };
+
+// Glowing star particles
+const bgLayer = document.getElementById('bgLayer');
+const starColors = ['#E91E8C','#7C3AED','#F5C842','#06B6D4','#FF6EB4','#A78BFA'];
+for (let i = 0; i < 55; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = 1.5 + Math.random() * 3.5;
+  const color = starColors[Math.floor(Math.random() * starColors.length)];
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:${color};box-shadow:0 0 ${size*4}px ${color};animation-duration:${2+Math.random()*4}s;animation-delay:-${Math.random()*5}s;`;
+  bgLayer.appendChild(s);
+}
+
+function goTo(n) {
+  if (n > state.step && !validateStep(state.step)) return;
+  document.getElementById('card'+(state.step==='Success'?'Success':state.step)).classList.remove('active');
+  document.getElementById('step'+state.step)?.classList.remove('active');
+  document.getElementById('step'+state.step)?.classList.add('done');
+  if (n===5) buildSummary();
+  state.step=n;
+  document.getElementById('card'+n).classList.add('active');
+  document.getElementById('step'+n).classList.add('active');
+  document.getElementById('step'+n).classList.remove('done');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateStep(n) {
+  if (n===1) {
+    let ok=true;
+    [['f-name','name',v=>v.trim().length>1],
+     ['f-phone','phone',v=>v.trim().length>6],
+     ['f-email','email',v=>/\S+@\S+\.\S+/.test(v)]
+    ].forEach(([fid,iid,fn])=>{
+      const f=document.getElementById(fid), v=document.getElementById(iid).value;
+      if(!fn(v)){f.classList.add('error');ok=false;} else f.classList.remove('error');
+    });
+    return ok;
+  }
+  if (n===2) {
+    let ok=true;
+    [['f-date','event-date',v=>v!==''],
+     ['f-time','event-time',v=>v!==''],
+     ['f-guests','guests',v=>v!=='']
+    ].forEach(([fid,iid,fn])=>{
+      const f=document.getElementById(fid), v=document.getElementById(iid).value;
+      if(!fn(v)){f.classList.add('error');ok=false;} else f.classList.remove('error');
+    });
+    return ok;
+  }
+  if (n===3 && !state.pkg.name) { alert('Please select a package to continue.'); return false; }
+  return true;
+}
+
+function selectEvent(el,name) {
+  document.querySelectorAll('.etype').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected'); state.eventType=name;
+}
+function selectPkg(el,name,price) {
+  document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected'); state.pkg={name,price};
+}
+function selectColor(el,name) {
+  document.querySelectorAll('.color-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); state.color=name;
+}
+function toggleAddon(el,name,price) {
+  el.classList.toggle('checked');
+  const idx=state.addons.findIndex(a=>a.name===name);
+  if(idx>=0) state.addons.splice(idx,1); else state.addons.push({name,price});
+}
+
+function buildSummary() {
+  const addonsTotal=state.addons.reduce((s,a)=>s+a.price,0);
+  const contactPref = document.getElementById('payment')?.value || '';
+  let html=`
+    <div class="summary-row"><span class="lbl">👤 Name</span><span class="val">${document.getElementById('name').value}</span></div>
+    <div class="summary-row"><span class="lbl">📞 Phone</span><span class="val">${document.getElementById('phone').value}</span></div>
+    <div class="summary-row"><span class="lbl">✉️ Email</span><span class="val">${document.getElementById('email').value}</span></div>
+    <div class="summary-row"><span class="lbl">📅 Preferred Date</span><span class="val">${document.getElementById('event-date').value}</span></div>
+    <div class="summary-row"><span class="lbl">⏰ Setup Time</span><span class="val">${document.getElementById('event-time').value}</span></div>
+    <div class="summary-row"><span class="lbl">🎉 Event Type</span><span class="val">${state.eventType||'Not selected'}</span></div>
+    <div class="summary-row"><span class="lbl">👥 Guests</span><span class="val">${document.getElementById('guests').value}</span></div>
+    <div class="summary-row"><span class="lbl">📍 City</span><span class="val">${document.getElementById('city').value||'—'}</span></div>
+    <div class="summary-row"><span class="lbl">📦 Interested Package</span><span class="val">${state.pkg.name||'Not selected'}</span></div>
+    <div class="summary-row"><span class="lbl">💰 Starting Price</span><span class="val">${state.pkg.price||'—'}</span></div>
+    <div class="summary-row"><span class="lbl">🎨 Colour Palette</span><span class="val">${state.color}</span></div>
+  `;
+  if(state.addons.length){
+    html+=`<div class="summary-row"><span class="lbl">✨ Extras Interested In</span><span class="val">${state.addons.map(a=>a.name).join(' · ')}</span></div>`;
+  }
+  html+=`
+    <div class="summary-total"><span class="lbl">Inquiry Status</span><span class="val">Pending Quote</span></div>
+    <div class="deposit-note"><span class="lbl">📋 Mayuri will send a custom quote within 24 hours</span></div>
+  `;
+  document.getElementById('summaryBox').innerHTML=html;
+}
+
+function confirmBooking() {
+  const ref='RVM-'+Math.floor(100000+Math.random()*900000);
+  document.getElementById('bookingRef').textContent=ref;
+  document.getElementById('card5').classList.remove('active');
+  document.getElementById('cardSuccess').classList.add('active');
+  document.querySelectorAll('.step').forEach(s=>{s.classList.remove('active');s.classList.add('done');});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resetApp() { location.reload(); }
+
+document.getElementById('event-date').min=new Date().toISOString().split('T')[0];
+document.querySelectorAll('input,select').forEach(el=>{
+  el.addEventListener('input',()=>el.closest('.field')?.classList.remove('error'));
+});
+</script>
+</body>
+</html>
