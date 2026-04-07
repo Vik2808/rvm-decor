@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const nodemailer = require('nodemailer');
 const path = require('path');
 
 const app = express();
@@ -40,10 +41,78 @@ app.post('/submit', async (req, res) => {
     };
 
     const result = await collection.insertOne(doc);
+    const bookingRef = result.insertedId.toString();
+
+    // Send email notification — failures are non-fatal
+    try {
+      const emailUser = process.env.EMAIL_USER;
+      const emailPassword = process.env.EMAIL_PASSWORD;
+
+      if (emailUser && emailPassword) {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: emailUser,
+            pass: emailPassword,
+          },
+        });
+
+        const {
+          name, phone, email, city, eventType, eventDate,
+          eventTime, guests, package: pkg, color, addons, notes,
+        } = formData;
+
+        const adminUrl = process.env.RAILWAY_PUBLIC_DOMAIN
+          ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/admin/data`
+          : 'http://localhost:8080/admin/data';
+
+        const mailOptions = {
+          from: emailUser,
+          to: 'mayuri.asnani@gmail.com',
+          subject: `New Inquiry from ${name || 'Unknown'} — RVM Decor`,
+          text: [
+            'A new booking inquiry has been submitted via the RVM Decor website.',
+            '',
+            '─────────────────────────────',
+            'INQUIRY DETAILS',
+            '─────────────────────────────',
+            `Name        : ${name || '—'}`,
+            `Phone       : ${phone || '—'}`,
+            `Email       : ${email || '—'}`,
+            `City        : ${city || '—'}`,
+            '',
+            `Event Type  : ${eventType || '—'}`,
+            `Event Date  : ${eventDate || '—'}`,
+            `Event Time  : ${eventTime || '—'}`,
+            `Guests      : ${guests || '—'}`,
+            '',
+            `Package     : ${pkg || '—'}`,
+            `Colors      : ${color || '—'}`,
+            `Add-ons     : ${addons || '—'}`,
+            '',
+            `Notes       : ${notes || '—'}`,
+            '',
+            '─────────────────────────────',
+            `Booking Ref : ${bookingRef}`,
+            `Submitted   : ${doc.submittedAt.toUTCString()}`,
+            '',
+            `View all inquiries in the admin panel:`,
+            adminUrl,
+          ].join('\n'),
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`Inquiry notification sent to mayuri.asnani@gmail.com (ref: ${bookingRef})`);
+      } else {
+        console.warn('EMAIL_USER or EMAIL_PASSWORD not set — skipping notification email.');
+      }
+    } catch (emailErr) {
+      console.error('Failed to send inquiry notification email:', emailErr.message);
+    }
 
     res.json({
       success: true,
-      bookingRef: result.insertedId.toString(),
+      bookingRef,
     });
   } catch (err) {
     console.error('MongoDB error:', err);
